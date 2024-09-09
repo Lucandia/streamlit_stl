@@ -1,0 +1,81 @@
+<html>
+  <body>
+    <!-- Three js javascript files -->
+    <script src="three_js_scripts/three.min.js"></script>
+    <script src="three_js_scripts/OrbitControls.js"></script>
+    <script src="three_js_scripts/stl-viewer.js"></script>
+    <script src="three_js_scripts/STLLoader.js"></script>
+    <!-- Set up your HTML here -->
+    <div id="stl_frame"> </div>
+
+    <script>
+      // ----------------------------------------------------
+      // Just copy/paste these functions as-is:
+
+      function sendMessageToStreamlitClient(type, data) {
+        var outData = Object.assign(
+          {
+            isStreamlitMessage: true,
+            type: type,
+          },
+          data
+        );
+        window.parent.postMessage(outData, "*");
+      }
+
+      function init() {
+        sendMessageToStreamlitClient("streamlit:componentReady", {
+          apiVersion: 1,
+        });
+      }
+
+      function setFrameHeight(height) {
+        sendMessageToStreamlitClient("streamlit:setFrameHeight", {
+          height: height,
+        });
+      }
+
+      // The `data` argument can be any JSON-serializable value.
+      function sendDataToPython(data) {
+        sendMessageToStreamlitClient("streamlit:setComponentValue", data);
+      }
+
+      // data is any JSON-serializable value you sent from Python,
+      // and it's already deserialized for you.
+      function onDataFromPython(event) {
+        if (event.data.type !== "streamlit:render") return;
+        let color = event.data.args.color;
+        console.log(color);
+        let material = event.data.args.material;
+        let auto_rotate = event.data.args.auto_rotate;
+        let file_path = event.data.args.file_path;
+        let height = event.data.args.height;
+        if (height !== undefined) setFrameHeight(height);
+
+        // CALL stl-viewer here
+        let stlViewer = document.createElement('stl-viewer');
+        stlViewer.setAttribute('model', file_path);
+        stlViewer.setAttribute('color', color);
+        stlViewer.setAttribute('auto_rotate', auto_rotate);
+        stlViewer.setAttribute('materialType', material);
+
+        // Clear any previous content in #stl_frame and append the new stl-viewer
+        let stlFrame = document.getElementById('stl_frame');
+        stlFrame.innerHTML = ''; // Clear the previous content
+        stlFrame.appendChild(stlViewer); // Append the stl-viewer
+        
+      }
+
+      // Hook things up!
+      window.addEventListener("message", onDataFromPython);
+      init();
+
+      // Hack to autoset the iframe height.
+      window.addEventListener("load", function () {
+        window.setTimeout(function () {
+          setFrameHeight(document.documentElement.clientHeight);
+        }, 0);
+      });
+    </script>
+  </body>
+</html>
