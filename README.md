@@ -14,9 +14,9 @@ pip install streamlit_stl
 
 ![Alt Text](https://github.com/Lucandia/streamlit_stl/blob/main/example.png?raw=true)
 
-Look at the [example](https://streamlitstl.streamlit.app/) for a streamlit Web App:
+Look at the [example](https://st-stl.streamlit.app/) for a streamlit Web App:
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://stoxview.streamlit.app/)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://st-stl.streamlit.app/)
 
 The original STL file is from [Printables](https://www.printables.com/it/model/505713-flexifier-flexi-3d-models-generator-print-in-place).
 
