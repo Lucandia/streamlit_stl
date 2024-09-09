@@ -23,10 +23,12 @@ class STLComponent:
             self.temp_folder = tempfile.mkdtemp(suffix='_st_stl')
             # Copy the current component directory to the temporary folder
             for file in os.listdir(parent_dir):
-                if os.path.isdir(parent_dir + os.sep + file):
-                    shutil.copytree(parent_dir + os.sep + file, self.temp_folder + os.sep + file)
+                src = parent_dir + os.sep + file
+                dst = self.temp_folder + os.sep + file
+                if os.path.isdir(src):
+                    shutil.copytree(src, dst)
                 else:
-                    shutil.copy(parent_dir + os.sep + file, self.temp_folder + os.sep + file)
+                    shutil.copy(src, dst)
             self.has_setup = True  # Mark setup as complete to prevent re-initialization
 
     def stl_from_text(self, text, color='#696969', material='material', auto_rotate=False, height=500, **kwargs):
