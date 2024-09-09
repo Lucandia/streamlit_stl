@@ -80,7 +80,7 @@ class STLComponent:
         """
         file_text = None
         if file_path is not None:
-            with open(file_path, "r") as f:
+            with open(file_path, "rb") as f:
                 file_text = f.read()  # Read the file content and add it to the list
         # Pass the file content to stl_from_text
         return self.stl_from_text(text=file_text, color=color, material=material, auto_rotate=auto_rotate, height=height, **kwargs)
