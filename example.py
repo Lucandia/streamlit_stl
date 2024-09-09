@@ -13,7 +13,8 @@ if __name__ == "__main__":
     with cols[1]:
         material = st.selectbox("Select a material", ["material", "wireframe"], key='material_file')
     with cols[2]:
-        auto_rotate = st.checkbox("Auto rotation", key='auto_rotate_file')
+        st.write('\n'); st.write('\n')
+        auto_rotate = st.toggle("Auto rotation", key='auto_rotate_file')
     with cols[3]:
         height = st.slider("Height", min_value=50, max_value=1000, value=500, key='height_file')
 
@@ -32,7 +33,8 @@ if __name__ == "__main__":
     with cols[1]:
         material = st.selectbox("Select a material", ["material", "wireframe"], key='material_text')
     with cols[2]:
-        auto_rotate = st.checkbox("Auto rotation", key='auto_rotate_text')
+        st.write('\n'); st.write('\n')
+        auto_rotate = st.toggle("Auto rotation", key='auto_rotate_text')
     with cols[3]:
         height = st.slider("Height", min_value=50, max_value=1000, value=500, key='height_text')
     if file_input:
